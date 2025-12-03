@@ -12,6 +12,6 @@ This section walks through setps to setup SSH access to RHEL hosts
    All these steps are automated in a simple ansible playbook that we can execute on the control machine as shown below
 
    ```sh
-   ansible-playbook -i inventory setup_ssh_access.yml
+   ansible-playbook -i inventory setup_ssh_access.yml --ask-pass
    ```
-   
+
