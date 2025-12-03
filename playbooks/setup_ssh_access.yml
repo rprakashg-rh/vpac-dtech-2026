@@ -28,17 +28,17 @@
     delegate_to: virtualization_hosts
     become: yes
     ansible.builtin.file:
-      path: "/home/{{ ansible_user }}/.ssh"
+      path: "/home/{{ ansible_env.USER }}/.ssh"
       state: directory
-      owner: "{{ ansible_user }}"
-      group: "{{ ansible_user }}"
+      owner: "{{ ansible_env.USER }}"
+      group: "{{ ansible_env.USER }}"
       mode: '0700'
 
   - name: Add control machine public key to authorized_keys
     delegate_to: virtualization_hosts
     become: yes
     ansible.builtin.authorized_key:
-      user: "{{ ansible_user }}"
+      user: "{{ ansible_env.USER }}"
       key: "{{ lookup('file', ansible_env.HOME + '/.ssh/' + key_name + '.pub' ) }}"
       state: present
 
