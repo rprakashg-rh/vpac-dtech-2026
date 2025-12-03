@@ -8,6 +8,14 @@
     key_name: "vpac_rsa_ansible"
   
   tasks:
+  - name: Create ssh directory under home
+    ansible.builtin.file:
+      path: "{{ ansible_env.HOME }}/.ssh"
+      state: directory
+      owner: "vpac"
+      group: "vpac"
+      mode: '0700'
+
   - name: Generate RSA keypair
     ansible.builtin.openssh_keypair:
       path: "{{ ansible_env.HOME }}/.ssh/{{ key_name }}"
