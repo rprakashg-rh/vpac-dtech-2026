@@ -1,0 +1,37 @@
+---
+# setup_ssh_access.yml
+# This playbook creates an SSH key on control machine and copies the public key over to remote virtualization hosts
+- name: Generate SSH key on control machine
+  hosts: localhost
+  gather_facts: false
+  vars:
+    key_name: "vpac_rsa_ansible"
+  
+  tasks:
+  - name: Generate RSA keypair
+    ansible.builtin.openssh_keypair:
+      path: "{{ ansible_env.HOME }}/.ssh/{{ key_name }}"
+      type: rsa
+      size: 4096            # RSA key size (2048, 3072, 4096)
+      comment: "SSH Key for accessing remote virtualization hosts"
+      force: no             # set yes to overwrite if key exists
+
+  - name: Create SSH directory under home on remote hosts for ansible_user
+    delegate_to: virtualization_hosts
+    become: yes
+    ansible.builtin.file:
+      path: "/home/{{ ansible_user }}/.ssh"
+      state: directory
+      owner: "{{ ansible_user }}"
+      group: "{{ ansible_user }}"
+      mode: '0700'
+
+  - name: Add control machine public key to authorized_keys
+    delegate_to: virtualization_hosts
+    become: yes
+    ansible.builtin.authorized_key:
+      user: "{{ ansible_user }}"
+      key: "{{ lookup('file', ansible_env.HOME + '/.ssh/' + key_name + '.pub' ) }}"
+      state: present
+
+
