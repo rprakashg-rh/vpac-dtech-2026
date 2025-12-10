@@ -1,0 +1,6 @@
+---
+# AAP organizations
+aap_organizations:
+- name: vpac
+  description: vPAC alliance
+...

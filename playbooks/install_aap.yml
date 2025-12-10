@@ -1,0 +1,15 @@
+# This playbook automates containerized installation of AAP
+- name: Install Ansible Automation Platform Containerized
+  hosts: cms
+  gather_facts: true
+
+  tasks:
+  - name: Load secrets from ansible vault
+    ansible.builtin.include_vars:
+      file: "./vars/secrets.yml"
+
+  - name: Install aap
+    ansible.builtin.import_role:
+      name: rprakashg.vpac.install_aap
+    vars:
+      node_fqdn: ec2-35-90-239-201.us-west-2.compute.amazonaws.com

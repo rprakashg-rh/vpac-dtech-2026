@@ -20,7 +20,7 @@ sudo apt upgrade -y
 We are now ready to install ansible. Run command below to install Ansible
 
 ```sh
-sudo apt install -y ansible
+sudo apt install -y ansible sshpass
 ```
 
 ## Verify ansible is installed

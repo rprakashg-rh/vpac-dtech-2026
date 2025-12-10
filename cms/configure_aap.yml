@@ -1,0 +1,22 @@
+---
+- name: Configure AAP for a specific environment
+  hosts: localhost
+  connection: local
+  gather_facts: false
+
+  tasks:
+  - name: Load common configurations
+    ansible.builtin.include_vars:
+      dir: configs/common
+      extensions:
+      - yml
+
+  - name: Load demo environment configurations
+    ansible.builtin.include_vars:
+      dir: "configs/{{ environment }}"
+      extensions:
+      - yml
+  
+  - name: Apply configuration using dispatch
+    ansible.builtin.include_role:
+      name: infra.aap_configuration.dispatch
