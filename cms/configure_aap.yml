@@ -5,15 +5,19 @@
   gather_facts: false
 
   tasks:
+  - name: Load auth config
+    ansible.builtin.include_vars:
+      file: ./configs/auth.yml
+    
   - name: Load common configurations
     ansible.builtin.include_vars:
-      dir: configs/common
+      dir: ./configs/common
       extensions:
       - yml
 
   - name: Load demo environment configurations
     ansible.builtin.include_vars:
-      dir: "configs/{{ environment }}"
+      dir: "./configs/demo"
       extensions:
       - yml
   
