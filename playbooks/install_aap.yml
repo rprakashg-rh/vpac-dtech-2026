@@ -12,4 +12,4 @@
     ansible.builtin.import_role:
       name: rprakashg.vpac.install_aap
     vars:
-      node_fqdn: ec2-35-90-239-201.us-west-2.compute.amazonaws.com
+      node_fqdn: ec2-35-92-134-67.us-west-2.compute.amazonaws.com

@@ -1,8 +1,4 @@
 ---
-controller_configuration_projects_secure_logging: true
-controller_configuration_projects_async_retries: 15
-controller_configuration_projects_async_delay: 5
-
 controller_projects:
 - name: dtech2026
   description: Distributech 2026 demo project

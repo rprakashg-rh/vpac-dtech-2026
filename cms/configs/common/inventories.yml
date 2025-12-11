@@ -1,0 +1,7 @@
+---
+controller_inventories:
+- name: DTECH2026 Inventory
+  organization: vpacalliance
+  description: Inventory for Distributech 2026 demos for vpac alliance
+
+...

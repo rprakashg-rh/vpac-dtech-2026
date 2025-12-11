@@ -1,0 +1,21 @@
+---
+controller_templates:
+- name: "Setup ImageBuilder"
+  organization: vpacalliance
+  project: dtech2026
+  playbook: playbooks/setup_imagebuilder.yml
+  inventory: 
+  credentials:
+  - Custom SSH
+  survey_enabled: false
+  ask_variables_on_launch: true
+
+- name: "Build ISO"  
+  organization: vpacalliance
+  project: dtech2026
+  playbook: playbooks/build_iso.yml
+  inventory: DTECH2026 Inventory
+  credentials:
+  - Custom SSH
+  survey_enabled: false
+  ask_variables_on_launch: true
