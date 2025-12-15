@@ -1,0 +1,33 @@
+---
+# this playbook enables virtualization on the host machines
+- name: Automation for enabling virtualization on hosts
+  hosts: virtualization_hosts
+  gather_facts: true
+  become: yes
+
+  tasks:
+  - name: Install required packages
+    ansible.builtin.dnf:
+      name: "{{ packages }}"
+      state: latest
+    vars:
+      packages:
+      - qemu-kvm
+      - libvirt
+      - virt-install
+      - virt-viewer
+
+  - name: Run virt-host-validate
+    ansible.builtin.shell: |
+      virt-host-validate
+    register: validation_status
+  
+  - name: Debug
+    ansible.builtin.debug:
+      var: validation_status
+      
+  - name: Enable service
+    ansible.builtin.service:
+      name: libvirtd
+      enabled: true
+      state: started
