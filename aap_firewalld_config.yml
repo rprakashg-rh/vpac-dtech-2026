@@ -1,0 +1,23 @@
+# This playbook automates containerized installation of AAP
+- name: Install Ansible Automation Platform Containerized
+  hosts: cms
+  gather_facts: true
+
+  tasks:
+  - name: Check if firewalld is installed
+    ansible.builtin.shell: |
+      rpm -q firewalld
+    ignore_errors: yes
+    register: firewalld_check
+  - name: Open TCP ports for EDA
+    when: firewalld_check.rc == 0
+    firewalld:
+      port: 
+      permanent: yes
+      state: enabled
+      zone: public
+  - name: Reload firewalld
+    when: firewalld_check.rc == 0
+    ansible.builtin.systemd:
+      name: firewalld
+      state: reloaded
